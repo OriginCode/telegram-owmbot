@@ -4,6 +4,7 @@ import configparser
 import logging
 import requests
 import json
+import pyowm
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from time import sleep
 
@@ -11,31 +12,34 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-config =  configparse.ConfigParser()
+config =  configparser.ConfigParser()
 config.read('./config.ini')
 
+owm = pyowm.OWM(API_key=config['BOT']['APPID'])
+
 def weather(update, context):
-    city = context.args[0]
-    city_id = 0
-    if len(context.args) > 1:
-        for i in range(1, len(context.args)):
-            city = city + " " + context.args[i]
-    with open('./city.list.json') as f:
-        l = json.load(f)
-        for i in l:
-            if i['name'] == city:
-                city_id = i['id']
-                break
-            else:
-                continue
-    req = requests.get('http://api.openweathermap.org/data/2.5/weather?id=%s&APPID=%s&units=metric' % (city_id, config['BOT']['APPID'])).json()
-    country = req['sys']['country']
-    city = req['name']
-    weather = req['weather'][0]['main']
-    temp = req['main']['temp']
-    wind_speed = req['wind']['speed']
-    update.message.reply_text('[ %s - %s ] Weather: %s, Current Temperature: %d °C, Wind Speed: %s m/s.' % 
-            (country, city, weather, temp, wind_speed))
+    city = context.args[0].replace('_', ' ')
+    try:
+        obs = owm.weather_at_places(city, searchtype='accurate', limit=int(context.args[1]) + 1)
+    except IndexError:
+        obs = owm.weather_at_places(city, searchtype='accurate', limit=3)
+    
+    for i in range(len(obs)):
+        w = obs[i].get_weather()
+        l = obs[i].get_location()
+        country = l.get_country()
+        city = l.get_name()
+        lon = l.get_lon()
+        lat = l.get_lat()
+        weather = w.get_status()
+        temp = w.get_temperature(unit='celsius')['temp']
+        humidity = w.get_humidity()
+        wind_speed = w.get_wind()['speed']
+        wind_deg = w.get_wind()['deg']
+
+        update.message.reply_text('[ %s - %s (lon:%.3f lat:%.3f) ]\nWeather: %s\nCurrent Temperature: %d °C\nHumidity: %d%%\nWind Speed: %d m/s\nWind Degree: %d°' % 
+            (country, city, lon, lat, weather, temp, humidity, wind_speed, wind_deg))
+
     sleep(1)
 
 def error(update, context):
