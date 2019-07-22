@@ -5,6 +5,7 @@ import logging
 import requests
 import json
 import pyowm
+from telegram import ParseMode
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from time import sleep
 
@@ -37,8 +38,8 @@ def weather(update, context):
         wind_speed = w.get_wind()['speed']
         wind_deg = w.get_wind()['deg']
 
-        update.message.reply_text('[ %s - %s (lon:%.3f lat:%.3f) ]\nWeather: %s\nCurrent Temperature: %d °C\nHumidity: %d%%\nWind Speed: %d m/s\nWind Degree: %d°' % 
-            (country, city, lon, lat, weather, temp, humidity, wind_speed, wind_deg))
+        update.message.reply_text('\[ %s - _%s_ (lon:%.3f lat:%.3f) ]\n*Weather* %s\n*Current Temperature* %d °C\n*Humidity* %d%%\n*Wind Speed* %d m/s\n*Wind Degree* %d°' % 
+            (country, city, lon, lat, weather, temp, humidity, wind_speed, wind_deg), parse_mode=ParseMode.MARKDOWN)
 
     sleep(1)
 
