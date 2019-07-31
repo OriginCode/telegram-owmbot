@@ -19,9 +19,15 @@ config.read('./config.ini')
 owm = pyowm.OWM(API_key=config['BOT']['APPID'])
 
 def weather(update, context):
-    city = context.args[0].replace('_', ' ')
+    city = ""
+    for i in context.args:
+        if not isinstance(i, int):
+            city += i
+            city += " "
+    city = city[:len(city) - 1]
+    lim = int(context.args[len(context.args) - 1])
     try:
-        obs = owm.weather_at_places(city, searchtype='accurate', limit=int(context.args[1]) + 1)
+        obs = owm.weather_at_places(city, searchtype='accurate', limit=lim)
     except IndexError:
         obs = owm.weather_at_places(city, searchtype='accurate', limit=3)
     
