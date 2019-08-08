@@ -20,7 +20,7 @@ owm = pyowm.OWM(API_key=config['OWM']['APPID'])
 
 
 def __deghandler__(deg):
-    if 330 <= deg < 360 or 0 <= deg < 30:
+    if 330 <= deg <= 360 or 0 <= deg < 30:
         return "N"
 
     elif 30 <= deg < 60:
