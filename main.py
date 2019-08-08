@@ -83,8 +83,8 @@ def owmhandler(update, context):
             '*Current Temperature* %d °C\n'
             '*Humidity* %d%%\n'
             '*Wind Speed* %d m/s\n'
-            '*Wind Degree* %s°'
-            % (country, city, lon, lat, weather, temp, humidity, wind_speed, __deghandler__(wind_deg)),
+            '*Wind Degree* %s %d°'
+            % (country, city, lon, lat, weather, temp, humidity, wind_speed, __deghandler__(wind_deg), wind_deg),
             parse_mode=ParseMode.MARKDOWN)
 
 
