@@ -62,7 +62,7 @@ class cmd():
         else:
             obs = owm.weather_at_places(city, searchtype='accurate', limit=3)
 
-        if len(obs) == 0 or city == "":
+        if len(obs) == 0 or len(context.args) == 0:
             update.message.reply_text(
                 '*Invalid City Name!*', parse_mode=ParseMode.MARKDOWN)
 
