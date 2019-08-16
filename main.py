@@ -58,7 +58,7 @@ class cmd():
 
         if context.args[len(context.args) - 1].isdigit():
             lim = int(context.args[len(context.args) - 1])
-            obs = owm.weather_at_places(city, searchtype='accurate', limit=lim)
+            obs = owm.weather_at_places(city, searchtype='accurate', limit=lim + 1)
         else:
             obs = owm.weather_at_places(city, searchtype='accurate', limit=3)
 
