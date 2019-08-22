@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import configparser
 import logging
@@ -7,7 +7,6 @@ import json
 import pyowm
 from telegram import ParseMode
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from time import sleep
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -58,7 +57,8 @@ class cmd():
 
         if context.args[len(context.args) - 1].isdigit():
             lim = int(context.args[len(context.args) - 1])
-            obs = owm.weather_at_places(city, searchtype='accurate', limit=lim + 1)
+            obs = owm.weather_at_places(
+                city, searchtype='accurate', limit=lim + 1)
         else:
             obs = owm.weather_at_places(city, searchtype='accurate', limit=3)
 
