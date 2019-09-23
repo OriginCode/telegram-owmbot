@@ -1,0 +1,7 @@
+Install the requirements: pip install -r requirements.txt
+Or you can use pipenv.
+
+Rules for Modules:
+1. The modules must be put under ./modules/ .
+2. The modules must be written in Python 3.
+3. The modules must all include a __all__ variable to store the function names.
