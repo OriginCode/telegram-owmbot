@@ -1,0 +1,25 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "e0616f2b9b89b6751a99b94576e66a90179b420dd0cfe3f1c512cf5d3a60d531"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.7"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "python-telegram-bot": {
+            "git": "https://github.com/python-telegram-bot/python-telegram-bot.git",
+            "ref": "b38a1840b2a53530bd3e34e7a06668a1c8117832"
+        }
+    },
+    "develop": {}
+}
