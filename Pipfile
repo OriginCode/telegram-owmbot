@@ -7,6 +7,7 @@ verify_ssl = true
 
 [packages]
 python-telegram-bot = {git = "https://github.com/python-telegram-bot/python-telegram-bot.git"}
+pyowm = "*"
 
 [requires]
 python_version = "3.7"
