@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import configparser
+import json
 import logging
 import importlib
 import os
@@ -13,8 +13,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-config = configparser.ConfigParser()
-config.read('./config.ini')
+with open('./config.json') as f:
+    config = json.load(f)
+
 
 def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)

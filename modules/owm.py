@@ -1,12 +1,12 @@
 from pyowm import OWM
-import configparser
+import json
 from telegram import ParseMode
 from modules.deghandler import __deghandler__
 
 __all__ = ['owmweather']
 
-config = configparser.ConfigParser()
-config.read('../config.ini')
+with open('./config.json') as f:
+    config = json.load(f)
 
 def owmweather(update, context):
     owm = OWM(API_key=config['OWM']['APPID'])
