@@ -35,6 +35,9 @@ def main():
             func = getattr(p, f)
             dp.add_handler(CommandHandler(f, func))
 
+    dp.add_handler(CommandHandler('plugins', lambda update, context:
+                                  update.message.reply_text('Loaded Plugins: ' + ' '.join(plugins))))
+
     dp.add_error_handler(error)
 
     updater.start_polling()

@@ -1,5 +1,6 @@
 __all__ = []
 
+
 def __deghandler__(deg):
     if 330 <= deg <= 360 or 0 <= deg < 30:
         return "N"
