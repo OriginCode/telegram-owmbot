@@ -31,7 +31,7 @@ def main():
 
     loaded = []
 
-    for mod in plugins:
+    for mod in plugins: # TODO: Better way to load plugins, with different types of handler supported.
         p = importlib.import_module('modules.' + mod)
         for f in p.__all__:
             loaded.append(f)

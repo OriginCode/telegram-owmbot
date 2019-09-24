@@ -8,7 +8,7 @@ __all__ = ['owmweather']
 with open('./config.json') as f:
     config = json.load(f)
 
-
+# TODO: Seperate the owm parser core and the handler.
 def owmweather(update, context):
     owm = OWM(API_key=config['OWM']['APPID'])
     city = ""
