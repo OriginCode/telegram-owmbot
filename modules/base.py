@@ -1,3 +1,4 @@
+import pip
 from telegram import ParseMode
 
 __all__ = ['version', 'about', 'ping']
@@ -8,7 +9,7 @@ def version(update, context):
         '`PROJEKT WEATHERBOT, RELEASE 20190924a`\n'
         '`python-telegram-bot: %s`\n'
         '`pyowm: %s`'
-        % (__import__('telegram').__version__, '2.1.0'), parse_mode=ParseMode.MARKDOWN) # WORKAROUND: pyowm has no __version__ function.
+        % (__import__('telegram').__version__, __import__('os').system('pip freeze | grep "pyowm"').split('==')[1]), parse_mode=ParseMode.MARKDOWN) # WORKAROUND: pyowm has no __version__ function.
 
 
 def about(update, context):
