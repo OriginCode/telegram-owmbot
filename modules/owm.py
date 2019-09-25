@@ -10,6 +10,11 @@ with open('./config.json') as f:
 
 # TODO: Seperate the owm parser core and the handler.
 def owmweather(update, context):
+    if len(context.args) == 0:
+        update.message.reply_text(
+            'Usage: /owmweather <City>[,Country] [Num of Reqs (Default: 2)]')
+        return 1
+
     owm = OWM(API_key=config['OWM']['APPID'])
     city = ""
     for i in context.args:
@@ -28,6 +33,7 @@ def owmweather(update, context):
     if len(obs) == 0:
         update.message.reply_text(
             '*Invalid City Name!*', parse_mode=ParseMode.MARKDOWN)
+        return 1
 
     for i in range(len(obs)):
         w = obs[i].get_weather()
@@ -44,11 +50,11 @@ def owmweather(update, context):
         wind_deg = w.get_wind()['deg']
 
         update.message.reply_text(
-            '\[ %s - _%s_ (lon:%.3f lat:%.3f) ]\n'
-            '*Weather* %s\n'
-            '*Current Temperature* %d °C\n'
-            '*Humidity* %d%%\n'
-            '*Wind Speed* %d m/s\n'
-            '*Wind Degree* %s %d°'
-            % (country, city, lon, lat, weather, temp, humidity, wind_speed, __deghandler__(wind_deg), wind_deg),
+            '*Current weather in %s, %s (lon:%.3f lat:%.3f)*\n'
+            'Weather: %s\n'
+            'Current Temperature: %d °C\n'
+            'Humidity: %d%%\n'
+            'Wind Speed: %d m/s\n'
+            'Wind Degree: %s %d°'
+            % (city, country, lon, lat, weather, temp, humidity, wind_speed, __deghandler__(wind_deg), wind_deg),
             parse_mode=ParseMode.MARKDOWN)
