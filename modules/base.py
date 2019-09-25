@@ -6,7 +6,7 @@ __all__ = ['version', 'about', 'ping', 'help']
 
 def version(update, context):
     update.message.reply_text(
-        '`PROJEKT WEATHERBOT, RELEASE 20190924a`\n'
+        '`PROJEKT WEATHERBOT, RELEASE 20190925a`\n'
         '`python-telegram-bot: %s`\n'
         % __import__('telegram').__version__, parse_mode=ParseMode.MARKDOWN)
 
