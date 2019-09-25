@@ -31,7 +31,8 @@ def main():
 
     loaded = []
 
-    for mod in plugins: # TODO: Better way to load plugins, with different types of handler supported.
+    # TODO: Better way to load plugins, with different types of handler supported.
+    for mod in plugins:
         p = importlib.import_module('modules.' + mod)
         for f in p.__all__:
             loaded.append(f)
@@ -39,7 +40,7 @@ def main():
             dp.add_handler(CommandHandler(f, func))
 
     dp.add_handler(CommandHandler('plugins', lambda update, context:
-                                  update.message.reply_text('Loaded Plugins: ' + ' '.join(loaded))))
+                                  update.message.reply_text('*Loaded Plugins*\n' + '\n'.join(loaded), parse_mode=ParseMode.MARKDOWN)))
 
     dp.add_error_handler(error)
 
