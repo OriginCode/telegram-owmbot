@@ -26,21 +26,23 @@ def main():
 
     dp = updater.dispatcher
 
-    plugins = [p.split('.py')[0] for p in os.listdir(
-        './modules') if p != '__init__.py' and p.endswith('.py')]
-
     loaded = []
 
     # TODO: Better way to load plugins, with different types of handler supported.
-    for mod in plugins:
+    for mod in (plugins := [p.split('.py')[0] for p in os.listdir('./modules') if p != '__init__.py' and p.endswith('.py')]):
         p = importlib.import_module('modules.' + mod)
         for f in p.__all__:
             loaded.append(f)
             func = getattr(p, f)
             dp.add_handler(CommandHandler(f, func))
 
-    dp.add_handler(CommandHandler('plugins', lambda update, context:
-                                  update.message.reply_text('*Loaded Plugins*\n' + '\n'.join(loaded), parse_mode=ParseMode.MARKDOWN)))
+    dp.add_handler(
+        CommandHandler(
+            'plugins',
+            lambda update, context:
+            update.message.reply_text(
+                '*Loaded Plugins*\n' + '\n'.join(loaded),
+                parse_mode=ParseMode.MARKDOWN)))
 
     dp.add_error_handler(error)
 
