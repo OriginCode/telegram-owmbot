@@ -27,7 +27,7 @@ def help(update, context):
         '*OriginCode\'s OWM Bot*\n'
         'Made with *LOVE* and *NYAA*\n\n'
         '*COMMANDS*\n'
-        'Get OpenWeatherMap weather info: `/owmweather <City>[,Country] [Num of Reqs (Default: 2)]`\n'
+        'Get OpenWeatherMap weather info: `/owmweather <City>[,Country ID] [Num of Reqs (Default: 2)]`\n'
         'Get version: `/version`\n'
         'About this bot: `/about`\n'
         'Ping!: `/ping`\n'

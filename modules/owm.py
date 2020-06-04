@@ -12,7 +12,7 @@ with open('./config.json') as f:
 def owmweather(update, context):
     if len(context.args) == 0:
         update.message.reply_text(
-            'Usage: /owmweather <City>[,Country] [Num of Reqs (Default: 2)]')
+            'Usage: /owmweather <City>[,Country ID] [Num of Reqs (Default: 2)]')
         return 1
 
     owm = OWM(API_key=config['OWM']['APPID'])
